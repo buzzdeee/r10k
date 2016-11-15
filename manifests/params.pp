@@ -117,11 +117,26 @@ class r10k::params
     $module_path     = '/opt/puppetlabs/puppet/code/modules'
 
     # Mcollective configuration dynamic
-    $mc_service_name = 'mcollective'
-    $plugins_dir     = '/opt/puppetlabs/mcollective/plugins/mcollective'
     $modulepath      = undef
-    $provider        = 'puppet_gem'
-    $r10k_binary     = 'r10k'
+
+    case $::osfamily {
+      'openbsd': {
+        $plugins_dir     = '/usr/local/libexec/mcollective/mcollective'
+        $provider        = 'openbsd'
+        $r10k_binary     = 'r10k23'
+        $mc_service_name = 'mcollectived'
+        $root_user       = 'root'
+        $root_group      = 'wheel'
+      }
+      default: {
+        $plugins_dir     = '/opt/puppetlabs/mcollective/plugins/mcollective'
+        $provider        = 'puppet_gem'
+        $r10k_binary     = 'r10k'
+        $mc_service_name = 'mcollective'
+        $root_user       = 'root'
+        $root_group      = 'root'
+      }
+    }
 
     # webhook
     $webhook_user    = 'puppet'
@@ -131,8 +146,6 @@ class r10k::params
     $webhook_private_key_path      = undef
     $webhook_certname              = undef
     $webhook_certpath              = undef
-    $root_user                     = 'root'
-    $root_group                    = 'root'
   }
   else {
     # Versions of FOSS prior to Puppet 4 (all in one)
@@ -184,8 +197,10 @@ class r10k::params
         $provider        = 'openbsd'
         if (versioncmp("${::kernelversion}", '5.8') < 0) { #lint:ignore:only_variable_string
           $r10k_binary     = 'r10k21'
-        } else {
+        } elsif (versioncmp("${::kernelversion}", '6.0') < 0) { #lint:ignore:only_variable_string
           $r10k_binary     = 'r10k22'
+        } else {
+          $r10k_binary     = 'r10k23'
         }
         $root_user       = 'root'
         $root_group      = 'wheel'
