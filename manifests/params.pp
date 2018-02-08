@@ -123,7 +123,11 @@ class r10k::params
       'openbsd': {
         $plugins_dir     = '/usr/local/libexec/mcollective/mcollective'
         $provider        = 'openbsd'
-        $r10k_binary     = 'r10k23'
+        if (versioncmp("${::kernelversion}", '6.2') < 0) { #lint:ignore:only_variable_string
+          $r10k_binary   = 'r10k23'
+        } else {
+          $r10k_binary   = 'r10k24'
+        }
         $mc_service_name = 'mcollectived'
         $root_user       = 'root'
         $root_group      = 'wheel'
@@ -199,8 +203,10 @@ class r10k::params
           $r10k_binary     = 'r10k21'
         } elsif (versioncmp("${::kernelversion}", '6.0') < 0) { #lint:ignore:only_variable_string
           $r10k_binary     = 'r10k22'
-        } else {
+        } elsif (versioncmp("${::kernelversion}", '6.2') < 0) { #lint:ignore:only_variable_string
           $r10k_binary     = 'r10k23'
+        } else {
+          $r10k_binary     = 'r10k24'
         }
         $root_user       = 'root'
         $root_group      = 'wheel'
