@@ -125,8 +125,10 @@ class r10k::params
         $provider        = 'openbsd'
         if (versioncmp("${::kernelversion}", '6.2') < 0) { #lint:ignore:only_variable_string
           $r10k_binary   = 'r10k23'
-        } else {
+        } elsif (versioncmp("${::kernelversion}", '6.3') < 0) { #lint:ignore:only_variable_string {
           $r10k_binary   = 'r10k24'
+        } else {
+          $r10k_binary   = 'r10k25'
         }
         $mc_service_name = 'mcollectived'
         $root_user       = 'root'
