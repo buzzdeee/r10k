@@ -21,6 +21,7 @@ class r10k (
   $forge_settings            = $r10k::params::forge_settings,
   $root_user                 = $r10k::params::root_user,
   $root_group                = $r10k::params::root_group,
+  $r10k_binary		     = $r10k::params::r10k_binary,
   $postrun                   = undef,
   $include_prerun_command    = false,
   $include_postrun_command   = false,

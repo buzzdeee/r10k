@@ -8,6 +8,7 @@ class r10k::mcollective (
   $app_path          = $r10k::params::mc_application_path,
   $mc_service        = $r10k::params::mc_service_name,
   $http_proxy        = $r10k::params::mc_http_proxy,
+  $r10k_binary       = $r10k::params::r10k_binary,
   $git_ssl_no_verify = $r10k::params::mc_git_ssl_no_verify,
 ) inherits r10k::params {
 
