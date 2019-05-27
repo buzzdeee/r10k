@@ -32,8 +32,10 @@ class r10k::install (
                       $real_package_name = 'ruby23-r10k'
                     } elsif (versioncmp("${::kernelversion}", '6.3') < 0) { #lint:ignore:only_variable_string
                       $real_package_name = 'ruby24-r10k'
-                    } else {
+                    } elsif (versioncmp("${::kernelversion}", '6.5') < 0) { #lint:ignore:only_variable_string
                       $real_package_name = 'ruby25-r10k'
+                    } else {
+                      $real_package_name = 'ruby26-r10k'
                     }
                   }
       'portage': { $real_package_name = 'app-admin/r10k' }
