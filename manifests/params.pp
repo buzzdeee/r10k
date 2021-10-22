@@ -128,7 +128,7 @@ class r10k::params
         } elsif (versioncmp("${::kernelversion}", '6.3') < 0) { #lint:ignore:only_variable_string {
           $r10k_binary   = 'r10k24'
         } else {
-          $r10k_binary   = 'r10k25'
+          $r10k_binary   = 'r10k30'
         }
         $mc_service_name = 'mcollectived'
         $root_user       = 'root'
