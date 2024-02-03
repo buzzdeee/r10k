@@ -31,10 +31,10 @@ class r10k::params
   # Include the mcollective agent
   $mcollective = false
 
-  if $::osfamily == 'Debian' {
+  if $facts['os']['family'] == 'Debian' {
     $functions_path     = '/lib/lsb/init-functions'
     $start_pidfile_args = '--pidfile=$pidfile'
-  } elsif $::osfamily == 'SUSE' {
+  } elsif $facts['os']['family'] == 'SUSE' {
     $functions_path     = '/etc/rc.status'
   } else {
     $functions_path     = '/etc/rc.d/init.d/functions'
@@ -119,7 +119,7 @@ class r10k::params
     # Mcollective configuration dynamic
     $modulepath      = undef
 
-    case $::osfamily {
+    case $facts['osfamily'] {
       'openbsd': {
         $plugins_dir     = '/usr/local/libexec/mcollective/mcollective'
         $provider        = 'openbsd'
@@ -173,7 +173,7 @@ class r10k::params
     $webhook_certname              = undef
     $webhook_certpath              = undef
 
-    case $::osfamily {
+    case $facts['os']['family'] {
       'debian': {
         $plugins_dir     = '/usr/share/mcollective/plugins/mcollective'
         $provider        = 'gem'
@@ -265,13 +265,13 @@ class r10k::params
   $webhook_configfile_mode       = '0644'
 
   # Service Settings for SystemD in EL7
-  if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '7' {
+  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '7' {
     $webhook_service_file     = '/usr/lib/systemd/system/webhook.service'
     $webhook_service_template = 'webhook.redhat.service.erb'
-  } elsif $::osfamily == 'Gentoo' {
+  } elsif $facts['os']['family'] == 'Gentoo' {
     $webhook_service_file     = '/etc/init.d/webhook'
     $webhook_service_template = 'webhook.init.gentoo.erb'
-  } elsif $::osfamily == 'Suse' and $::operatingsystemrelease >= '12' {
+  } elsif $facts['os']['family'] == 'Suse' and $facts['os']['release']['full'] >= '12' {
     $webhook_service_file     = '/etc/systemd/system/webhook.service'
     $webhook_service_template = 'webhook.suse.service.erb'
   } else {
