@@ -64,11 +64,7 @@ class r10k::config (
   $forge_settings            = {},
 ) inherits r10k::params {
 
-  if is_string($manage_configfile_symlink) {
-    $manage_configfile_symlink_real = str2bool($manage_configfile_symlink)
-  } else {
-    $manage_configfile_symlink_real = $manage_configfile_symlink
-  }
+  $manage_configfile_symlink_real = $manage_configfile_symlink
 
   if $sources == 'UNSET' {
     $r10k_sources  = {
