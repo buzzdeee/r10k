@@ -64,16 +64,11 @@ class r10k::config (
   $forge_settings            = {},
 ) inherits r10k::params {
 
-  validate_bool($manage_modulepath)
-
   if is_string($manage_configfile_symlink) {
     $manage_configfile_symlink_real = str2bool($manage_configfile_symlink)
   } else {
     $manage_configfile_symlink_real = $manage_configfile_symlink
   }
-  validate_bool($manage_configfile_symlink_real)
-
-  validate_absolute_path($configfile_symlink)
 
   if $sources == 'UNSET' {
     $r10k_sources  = {
@@ -84,14 +79,9 @@ class r10k::config (
     }
     $source_keys = keys($r10k_sources)
   } else {
-    validate_hash($sources)
 
     $r10k_sources = $sources
     $source_keys = keys($r10k_sources)
-  }
-
-  if $postrun != undef {
-    validate_array($postrun)
   }
 
   if $configfile == '/etc/puppetlabs/r10k/r10k.yaml' {

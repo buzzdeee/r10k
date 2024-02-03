@@ -37,8 +37,6 @@ class r10k (
   }
 
   $ruby_dependency_options=['include','declare','ignore']
-  validate_re($manage_ruby_dependency,$ruby_dependency_options)
-  validate_hash($git_settings, $forge_settings)
 
   # TODO: Clean this up when 4.0 to require a boolean
   if $include_prerun_command == true  or $include_prerun_command == 'true'{

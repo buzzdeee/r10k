@@ -71,7 +71,6 @@ class r10k::webhook::config (
       'allow_uppercase'       => $allow_uppercase,
     }
   } else {
-    validate_hash($hash)
     $webhook_hash = $hash
   }
 
