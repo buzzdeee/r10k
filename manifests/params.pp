@@ -119,7 +119,7 @@ class r10k::params
     # Mcollective configuration dynamic
     $modulepath      = undef
 
-    case $facts['osfamily'] {
+    case $facts['os']['family'] {
       'openbsd': {
         $plugins_dir     = '/usr/local/libexec/mcollective/mcollective'
         $provider        = 'openbsd'
