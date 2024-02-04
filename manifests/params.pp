@@ -47,11 +47,7 @@ class r10k::params
   if $::is_pe == true or $::is_pe == 'true' {
     # < PE 4
     $is_pe_server      = true
-  }elsif is_function_available('pe_compiling_server_version') {
-    # >= PE 4
-    $is_pe_server      = true
-  }
-  else {
+  } else {
     # FOSS
     $is_pe_server      = false
   }
